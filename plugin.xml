@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    id="cordova-plugin-ad-microsoftads"
+    version="1.0.0">
+	
+    <name>Cordova Microsoft Advertising plugin</name>
+    <description>Show Microsoft Advertising interstitial ad</description>
+    <author>Nonostante Games</author>	
+    <license>MIT</license>
+    <keywords>cordova,plugin,ad,video,microsoft,monetisation</keywords>
+    <repo>https://github.com/nonostante/cordova-plugin-ad-microsoftads</repo>
+    <issue>https://github.com/nonostante/cordova-plugin-ad-microsoftads/issues</issue>	
+	<engines>
+	    <engine name="cordova" version=">=3.0.0" />
+	</engines>
+ 	
+    <js-module src="www/microsoftads.js" name="microsoftads">
+        <clobbers target="window.microsoftads" />
+    </js-module>    
+    
+	<!-- windows -->
+	<platform name="windows">       
+		<js-module src="src/windows/microsoftadsProxy.js" name="microsoftadsProxy">
+            <merges target="" />
+        </js-module>
+
+		<lib-file src="Microsoft.VCLibs, version=12.0" target="phone" />
+		<lib-file src="MSAdvertisingJS, Version=8.5" target="phone" />		
+		<lib-file src="Microsoft.VCLibs, version=12.0" target="windows" versions="8.1" />
+		<lib-file src="MSAdvertisingJS, Version=8.5" target="windows" versions="8.1" />		
+	</platform>
+</plugin>
