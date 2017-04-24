@@ -1,6 +1,6 @@
 {
   "name": "cordova-plugin-ad-microsoftads",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Show Microsoft Advertising interstitial ad",
   "cordova": {
     "id": "cordova-plugin-ad-microsoftads",
@@ -13,21 +13,22 @@
     "url": "git+https://github.com/nonostante/cordova-plugin-ad-microsoftads.git"
   },
   "keywords": [
+    "ecosystem:cordova",
+    "cordova-windows",
     "cordova",
     "plugin",
     "ad",
     "video",
     "microsoft",
-    "monetisation",
-    "ecosystem:cordova",
-    "cordova-windows"
+    "monetisation"
   ],
-  "engines": [
-    {
-      "name": "cordova",
-      "version": ">=3.0.0"
+  "engines": {
+    "cordovaDependencies": {
+      "1.0.0": {
+        "cordova": ">=3.0.0"
+      }
     }
-  ],
+  },
   "author": "Nonostante Games",
   "license": "MIT",
   "bugs": {

@@ -1,71 +1,87 @@
-var isAdLoaded = false;
+var isLoaded = {};
 
 module.exports = {
-	onInterstitialAdReady: null,
-	onInterstitialAdCompleted: null,
-	onInterstitialAdError: null,
-	onInterstitialAdCancelled: null,
-	isInterstitialAdLoaded: function () {
-		return isAdLoaded;
+	onInterstitialEvent: null,
+	isImageAdLoaded: function () {
+		return !!isLoaded["image"];
 	},
-	setUp: function (isTest) {
+	isVideoAdLoaded: function () {
+		return !!isLoaded["video"];
+	},
+	setUp: function (isTest, errorCallback) {
 		var _this = this;
 		cordova.exec(
-			function (result) {
-				var ev = typeof result === "string" ? result : result.event;
-
-				switch (ev) {
-					case "setupOk":
-						break;
+			function (ev) {
+				switch (ev.state) {
 					case "adReady":
-						isAdLoaded = true;
-						_this.onInterstitialAdReady && _this.onInterstitialAdReady();
+						isLoaded[ev.adType] = true;
 						break;
+
 					case "adError":
-						isAdLoaded = false;
-						_this.onInterstitialAdError && _this.onInterstitialAdError(result.args);
-						break;
 					case "adCompleted":
-						isAdLoaded = false;
-						_this.onInterstitialAdCompleted && _this.onInterstitialAdCompleted();
-						break;
 					case "adCancelled":
-						isAdLoaded = false;
-						_this.onInterstitialAdCancelled && _this.onInterstitialAdCancelled();
+						isLoaded[ev.adType] = false;
 						break;
+
+					case "setupOk":
 					default:
 						break;
 				}
+				_this.onInterstitialEvent && _this.onInterstitialEvent(ev);
 			},
 			function (error) {
-				console.log('setUp failed.');
+				errorCallback(error);
 			},
 			'microsoftads',
 			'setUp',
 			[isTest]
 		);
 	},
-	preloadInterstitialAd: function (appId, unitId) {
+	preloadImageAd: function (appId, unitId) {
 		var _this = this;
 		cordova.exec(
 			null,
 			function (err) {
-				_this.onInterstitialAdError && _this.onInterstitialAdError(err);
+				_this.onInterstitialEvent && _this.onInterstitialEvent({ adType: "image", state: "error", err: err });
 			},
 			'microsoftads',
-			'preloadInterstitialAd',
+			'preloadImageAd',
 			[appId, unitId]
 		);
 	},
-	showInterstitialAd: function () {
+	showImageAd: function () {
 		var _this = this;
 		cordova.exec(
 			null,
 			function (err) {
-				_this.onInterstitialAdError && _this.onInterstitialAdError(err);
+				_this.onInterstitialEvent && _this.onInterstitialEvent({ adType: "image", state: "error", err: err });
 			},
 			'microsoftads',
-			'showInterstitialAd',
+			'showImageAd',
+			[]
+		);
+	},
+	preloadVideoAd: function (appId, unitId) {
+		var _this = this;
+		cordova.exec(
+			null,
+			function (err) {
+				_this.onInterstitialEvent && _this.onInterstitialEvent({ adType: "video", state: "error", err: err });
+			},
+			'microsoftads',
+			'preloadVideoAd',
+			[appId, unitId]
+		);
+	},
+	showVideoAd: function () {
+		var _this = this;
+		cordova.exec(
+			null,
+			function (err) {
+				_this.onInterstitialEvent && _this.onInterstitialEvent({ adType: "video", state: "error", err: err });
+			},
+			'microsoftads',
+			'showVideoAd',
 			[]
 		);
 	}

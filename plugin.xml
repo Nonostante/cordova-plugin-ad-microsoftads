@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     id="cordova-plugin-ad-microsoftads"
-    version="1.0.0">
+    version="2.0.0">
 	
     <name>Cordova Microsoft Advertising plugin</name>
     <description>Show Microsoft Advertising interstitial ad</description>
@@ -28,5 +28,7 @@
 		<lib-file src="MSAdvertisingJS, Version=8.5" target="phone" />		
 		<lib-file src="Microsoft.VCLibs, version=12.0" target="windows" versions="8.1" />
 		<lib-file src="MSAdvertisingJS, Version=8.5" target="windows" versions="8.1" />		
+		<lib-file src="Microsoft.VCLibs, version=14.0" target="windows" versions="10" />
+		<lib-file src="Microsoft.Advertising.JavaScript, Version=10.0" target="windows" versions="10" />		
 	</platform>
 </plugin>
